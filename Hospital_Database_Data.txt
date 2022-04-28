@@ -1,0 +1,122 @@
+
+-- Insert tuples into the relations
+
+INSERT INTO relation(att1, ... ,attn)
+VALUES (v1, ... ,vn)
+---------------------------------------------------------------------------
+
+-- Insert data for the medicine relation
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (31234, 'Adderall', 45, 14.56)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (32345, 'Ozempic', 56, 16.42)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (33456, 'Lexapro', 45, 15.32)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (34567, 'Melatonin', 61, 12.56)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (35678, 'Ibuprofen', 62, 13.46)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (36789, 'Viagra', 45, 16.42)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (37891, 'Lofexidine', 32, 14.56)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (38912, 'Lyrica', 40, 13.67)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (39123, 'Methadone', 52, 15.32)
+
+INSERT INTO medicine(med_id, med_name, quantity, price)
+VALUES (31123, 'Ciprofloxacin', 65, 13.43)
+
+-- Insert data for the patient relation
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12345, 'Ibuprofen', 'Donye', 'Wakefield', 'Male', '267-471-9999', '200-67-9324', '132 Ross Street', 'Philadelphia', 'Pennsylvania', 19145, 22, 1999-09-08, 'African-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (13210, 'Ciprofloxacin', 'Lucas', 'Rozgoth', 'Male', '267-488-9999', '200-88-9344', '155 Forman Street', 'Philadelphia', 'Pennsylvania', 19149, 26, 1996-10-26, 'Caucasian-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (14545, 'Ibuprofen', 'Alexander', 'Blessings', 'Male', '267-511-9979', '200-99-9524', '153 Villa Street', 'Philadelphia', 'Pennsylvania', 19132, 22, 1999-02-08, 'Caucasian-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (15645, 'Lyrica', 'Valery', 'Valentine', 'Female', '267-477-9991', '200-77-9311', '432 Lovington Street', 'Philadelphia', 'Pennsylvania', 19234, 23, 1998-03-01, 'African-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12555, , 'Sherman', 'Vaughn', 'Male', '267-678-8949', '200-27-9224', '55th Mansion Street', 'Philadelphia', 'Pennsylvania', 19222, 38, 1983-07-12, 'Mixed/Other')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (15555, 'Viagra', 'Veronica', 'Withers', 'Female', '267-723-7788', '200-99-3434', '32nd Johnson Street', 'Philadelphia', 'Pennsylvania', 19444, 24, 1997-06-06, 'Asian-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (14444, 'Lexapro', 'Kalisser', 'Kelson', 'Male', '267-341-1111', '200-44-6666', '130 Ross Street', 'Philadelphia', 'Pennsylvania', 19145, 20, 2001-01-02, 'Mixed/Other')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12222, 'Adderall', 'Hana', 'Love', 'Female', '267-999-3434', '200-61-6161', '66th Garfield Street', 'Philadelphia', 'Pennsylvania', 19133, 21, 2000-01-22, 'Hispanic-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (15454, , 'Christian', 'Wolfe', 'Male', '267-551-5151', '200-10-3131', '11th Diamond Street', 'Philadelphia', 'Pennsylvania', 19212, 22, 1999-04-05, 'Caucasian-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12323, 'Melatonin', 'Mercella', 'Masters', 'Female', '267-891-7699', '200-97-9774', '522 West Bronze Ave', 'Philadelphia', 'Pennsylvania', 19888, 23, 1998-09-01, 'African-American')
+
+INSERT INTO patient(patient_id, med_name, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12543, 'Adderall', 'Donavon', 'Masters', 'Male', '267-372-9622', '200-11-2233', '522 West Bronze Ave', 'Philadelphia', 'Pennsylvania', 19888, 24, 1997-09-22, 'African-American')
+
+
+-- Insert data for department relation
+
+INSERT INTO department(dept_id, dept_name, dept_head_id) --dept_head_id references staff_id from staff relation
+VALUES (21345, 'Accident and emergency', 51234)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21456, 'Cardiology', 52345)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21567, 'Accident and emergency', 53456)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21678, 'Critical Care', 54567)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21789, 'Finance Department', 55678)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21891, 'General Services', 56789)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21912, 'General Surgery', 57891)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21123, 'Human Resources', 58912)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21234, 'Nutrition and Dietetics', 59123)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21346, 'Pharmacy', 51235)
+
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21347, 'Radiology', 51236)
+
+-- Insert data for staff relation
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (51234, 'Accident and emergency', '', '', 'Manager', 'Female', '', '', '', '', '', )
+
+
+
+
+
+
+
+
