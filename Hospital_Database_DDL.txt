@@ -1,0 +1,190 @@
+/* This is the DDL for the Hospital Database */
+
+-- stores data pertaining to medicine
+CREATE TABLE IF NOT EXISTS medicine
+(
+	med_id				INTEGER,
+	med_name			VARCHAR(20),
+	quantity			INTEGER,
+	price				NUMERIC(5,2), -- per unit
+	CONSTRAINT medicine_pk1 PRIMARY KEY (med_id),
+	CONSTRAINT medicine_pk2 PRIMARY KEY (med_name)
+);
+
+-- stores data pertaining to patients
+CREATE TABLE IF NOT EXISTS patient
+(
+	patient_id				INTEGER,
+	med_name				VARCHAR(20),
+	first_name				VARCHAR(20),
+	last_name				VARCHAR(20),
+	sex						VARCHAR(10),
+	phone_number			VARCHAR(15),
+	SSN						VARCHAR(11),
+	street_address			VARCHAR(30),
+	city 					VARCHAR(30),
+	state					VARCHAR(35),
+	zip						INTEGER,
+	age						INTEGER,
+	DOB						DATE,
+	race					VARCHAR(20),
+	CONSTRAINT patient_pk1 PRIMARY KEY (patient_id),
+	CONSTRAINT patient_fk1 FOREIGN KEY (med_name) REFERENCES medicine (med_name)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to departments
+CREATE TABLE IF NOT EXISTS department
+(
+	dept_id					INTEGER,
+	dept_name				VARCHAR(20),
+	dept_head_id			INTEGER, -- this needs to be updated
+	CONSTRAINT department_pk1 PRIMARY KEY (dept_id),
+	CONSTRAINT department_pk2 PRIMARY KEY (dept_name)	
+);
+
+-- stores data pertaining to doctors
+CREATE TABLE IF NOT EXISTS doctor
+(
+	doctor_id				INTEGER,
+	dept_name				VARCHAR(20),
+	first_name				VARCHAR(20),
+	last_name				VARCHAR(20),
+	specialty				VARCHAR(20),
+	sex						VARCHAR(10),
+	phone_number			VARCHAR(15),
+	street_address			VARCHAR(30),
+	city					VARCHAR(30),
+	state					VARCHAR(35),
+	zip						INTEGER,
+	age						INTEGER,
+	DOB						DATE,
+	race					VARCHAR(20),
+	CONSTRAINT doctor_pk1 PRIMARY KEY (doctor_id),
+	CONSTRAINT doctor_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to nurses
+CREATE TABLE IF NOT EXISTS nurse
+(
+	nurse_id				INTEGER,
+	dept_name				VARCHAR(20),
+	first_name				VARCHAR(20),
+	last_name				VARCHAR(20),
+	sex						VARCHAR(10),
+	phone_number			VARCHAR(15),
+	street_address			VARCHAR(30),
+	city					VARCHAR(30),
+	state					VARCHAR(35),
+	zip						INTEGER,
+	age						INTEGER,
+	DOB						DATE,
+	race					VARCHAR(20),
+	CONSTRAINT nurse_pk1 PRIMARY KEY (nurse_id),
+	CONSTRAINT nurse_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to staff/regular employees
+CREATE TABLE IF NOT EXISTS staff
+(
+	staff_id				INTEGER,
+	dept_name				VARCHAR(20),
+	first_name				VARCHAR(20),
+	last_name				VARCHAR(20),
+	position				VARCHAR(20),
+	sex						VARCHAR(10),
+	phone_number			VARCHAR(15),
+	street_address			VARCHAR(30),
+	city					VARCHAR(30),
+	state					VARCHAR(35),
+	zip						INTEGER,
+	age						INTEGER,
+	DOB						DATE,
+	race					VARCHAR(20),
+	CONSTRAINT staff_pk1 PRIMARY KEY (staff_id),
+	CONSTRAINT staff_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to payments
+CREATE TABLE IF NOT EXISTS payment
+(
+	payment_id				INTEGER,
+	status					VARCHAR(10),
+	type					VARCHAR(20),
+	CONSTRAINT payment_pk1 PRIMARY KEY (payment_id),	
+);
+
+-- stores data pertaining to bills charged to patients
+CREATE TABLE IF NOT EXISTS bill
+(
+	bill_id					INTEGER,
+	payment_id				INTEGER,
+	room_charges			NUMERIC(5,2),
+	med_charges				NUMERIC(5,2),
+	doctor_charges			NUMERIC(6,2),
+	CONSTRAINT bill_pk1 PRIMARY KEY (bill_id),
+	CONSTRAINT bill_fk1 FOREIGN KEY (payment_id) REFERENCES payments (payment_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to rooms in the hospital
+CREATE TABLE IF NOT EXISTS room
+(
+	room_id					INTEGER,
+	room_number				INTEGER,
+	room_type				VARCHAR(20),
+	floor_number			INTEGER,
+	occupancy				INTEGER,
+	CONSTRAINT room_pk1 PRIMARY KEY (room_id)
+);
+
+-- stores data pertaining to diagnosis observed for patients
+CREATE TABLE IF NOT EXISTS diagnosis
+(
+	diagnosis_id			INTEGER,
+	patient_id				INTEGER,
+	diagnosis_type			VARCHAR(20),
+	result					VARCHAR(20),
+	CONSTRAINT diagnosis_pk1 PRIMARY KEY (diagnosis_id),
+	CONSTRAINT diagnosis_fk1 FOREIGN KEY (patient_id) REFERENCES patient (patient_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE	
+);
+
+-- stores data pertaining to records for patient pass appointments
+CREATE TABLE IF NOT EXISTS record
+(
+	record_id				INTEGER,
+	doctor_id				INTEGER,
+	patient_id				INTEGER,
+	nurse_id				INTEGER,
+	bill_id					INTEGER,
+	room_number				INTEGER,
+	date_admitted			DATE,
+	date_discharged			DATE,
+	treatment				VARCHAR(30),
+	CONSTRAINT record_pk1 PRIMARY KEY (record_id),
+	CONSTRAINT record_fk1 FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+	CONSTRAINT record_fk2 FOREIGN KEY (patient_id) REFERENCES patient (patient_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+	CONSTRAINT record_fk3 FOREIGN KEY (nurse_id) REFERENCES nurse (nurse_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+	CONSTRAINT record_fk4 FOREIGN KEY (bill_id) REFERENCES bill (bill_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+	CONSTRAINT record_fk5 FOREIGN KEY (room_number) REFERENCES room (room_number)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+);
