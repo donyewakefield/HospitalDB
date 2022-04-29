@@ -82,9 +82,6 @@ INSERT INTO department(dept_id, dept_name, dept_head_id)
 VALUES (21456, 'Cardiology', 52345)
 
 INSERT INTO department(dept_id, dept_name, dept_head_id)
-VALUES (21567, 'Accident and emergency', 53456)
-
-INSERT INTO department(dept_id, dept_name, dept_head_id)
 VALUES (21678, 'Critical Care', 54567)
 
 INSERT INTO department(dept_id, dept_name, dept_head_id)
@@ -108,15 +105,219 @@ VALUES (21346, 'Pharmacy', 51235)
 INSERT INTO department(dept_id, dept_name, dept_head_id)
 VALUES (21347, 'Radiology', 51236)
 
+INSERT INTO department(dept_id, dept_name, dept_head_id)
+VALUES (21348, 'Nursing', 51237)
+
+
 -- Insert data for staff relation
 
+-- all managers
 INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
-VALUES (51234, 'Accident and emergency', '', '', 'Manager', 'Female', '', '', '', '', '', )
+VALUES (51234, 'Accident and emergency', 'Bruce', 'Wayne', 'Manager', 'Male', '267-444-9999', '23rd blv', 'Gotham', 'New Jersey', '07164', 34, 1987-01-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (52345, 'Cardiology', 'Joker', 'Clown', 'Manager', 'Male', '267-444-9991', '23rd blv', 'Gotham', 'New Jersey', '07162', 34, 1987-05-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (54567, 'Critical Care', 'Edward', 'Nygma', 'Manager', 'Male', '267-444-9992', '25th blv', 'Gotham', 'New Jersey', '07163', 35, 1986-01-23 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (55678, 'Finance Department', 'Oswald', 'Cobblepot', 'Manager', 'Male', '267-444-9993', '27th blv', 'Gotham', 'New Jersey', '07165', 36, 1985-01-24 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (56789, 'General Services', 'Selina', 'Kyle', 'Manager', 'Female', '267-444-9994', '23rd blv', 'Gotham', 'New Jersey', '07166', 34, 1987-04-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (57891, 'General Surgery', 'Victor', 'Fries', 'Manager', 'Male', '267-444-9995', '23rd blv', 'Gotham', 'New Jersey', '07167', 34, 1987-09-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (58912, 'Human Resources', 'Pamela', 'Lillian', 'Manager', 'Female', '267-444-9996', '25th blv', 'Gotham', 'New Jersey', '07168', 34, 1987-06-21 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (59123, 'Nutrition and Dietetics', 'Basil', 'Karlo', 'Manager', 'Female', '267-444-9997', '23rd blv', 'Gotham', 'New Jersey', '07169', 34, 1987-04-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (51235, 'Pharmacy', 'Jonathan', 'Crane', 'Manager', 'Male', '267-444-9998', '26th blv', 'Gotham', 'New Jersey', '07170', 34, 1987-10-31 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (51236, 'Radiology', 'Harleen', 'Frances', 'Manager', 'Female', '267-444-9990', '23rd blv', 'Gotham', 'New Jersey', '07171', 34, 1987-07-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (51237, 'Nursing', 'Lady', 'Shiva', 'Manager', 'Female', '267-444-9977', '23rd blv', 'Gotham', 'New Jersey', '07172', 34, 1987-09-22 )
+
+-- all other employees
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50000, 'Finance Department', 'Ronald', 'McDonald', 'Financial Analyst', 'Male', '267-444-8888', '23rd Diamond street', 'Philadelphia', 'Pennsylvania', '19990', 34, 1987-05-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50001, 'General Services', 'Burger', 'King', 'Janitor', 'Male', '267-444-8881', '23rd Diamond street', 'Philadelphia', 'Pennsylvania', '19991', 34, 1987-09-12 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50002, 'General Services', 'Wendy', 'Fries', 'Housekeeper', 'Female', '267-444-8882', '25th Diamond street', 'Philadelphia', 'Pennsylvania', '19992', 35, 1986-07-23 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50003, 'Pharmacy', 'Ham', 'Burgerler', 'Pharmacologist', 'Male', '267-444-8883', '27th Diamond street', 'Philadelphia', 'Pennsylvania', '19993', 36, 1985-05-24 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50004, 'Human Resources', 'Grimace', 'Burgerston', 'HR Specialist', 'Male', '267-444-8884', '23rd Diamond street', 'Philadelphia', 'Pennsylvania', '19994', 34, 1987-02-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50005, 'General Services', 'Mayor', 'McCheese', 'Administrative Assistant', 'Male', '267-444-8885', '24th Diamond street', 'Philadelphia', 'Pennsylvania', '19995', 34, 1987-02-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50006, 'General Services', 'Chick', 'Filesia', 'Security Guard', 'Female', '267-444-8886', '28th Diamond street', 'Philadelphia', 'Pennsylvania', '19996', 34, 1987-05-21 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50007, 'General Services', 'Chuck', 'Cheese', 'Maintenance Mechanic', 'Male', '267-444-8887', '23rd Diamond street', 'Philadelphia', 'Pennsylvania', '19997', 34, 1987-08-22 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50008, 'General Services', 'Taco', 'Bella', 'IT specialist', 'Female', '267-444-8810', '29th Diamond street', 'Philadelphia', 'Pennsylvania', '19998', 34, 1987-11-31 )
+
+INSERT INTO staff(staff_id, dept_name, first_name, last_name, position, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+VALUES (50009, 'General Services', 'Arbys', 'Meatson', 'Scheduler', 'Male', '267-444-8811', '21st Diamond street', 'Philadelphia', 'Pennsylvania', '19910', 34, 1987-12-22 )
+
+-- Insert data for diagnosis relation
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40001, 15555, Anxiety Disorder)
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40002, 14444, Depression)
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40003, 15454, Tourette Syndrome)
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40004, 12323, Down Syndrome)
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40005, 14545, Deafness)
+
+INSERT INTO diagnosis(diagnosis_id, patient_id, diagnosis_type)
+VALUES (40006, 12555, Sickle Cell Disease)
 
 
+-- Insert data for room relation
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (61234, 123, 'Administrative Office', 1, 2)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (62345, 104, 'Security Office', 1, 4)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (63456, 202, 'Surgery room', 2, 1)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (64567, 304, 'Radiology room', 3, 2)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (65678, 113, 'IT Office', 1, 4)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (66789, 120, 'Nursing Office', 1, 4)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (67891, 220, 'Operating room', 2, 3)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (68910, 215, 'Operating room', 2, 3)
+
+INSERT INTO room(room_id, room_number, room_type, floor_number, occupancy)
+VALUES (69100, 210, 'Operating room', 2, 3)
 
 
+--Insert data for nurse relation
+
+INSERT INTO nurse(nurse_id, dept_name, first_name, last_name, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (81234, 'Nursing', 'Sally', 'Sunshine', 'Female', '267-123-0000', '123 Sunset street', 'Philadelphia', 'Pennsylvania', 19600, 34, 1987-10-31)
+
+INSERT INTO nurse(nurse_id, dept_name, first_name, last_name, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (82345, 'Nursing', 'Tony', 'Stark', 'Male', '267-123-1000', '126 Sunset street', 'Philadelphia', 'Pennsylvania', 19600, 34, 1987-09-22)
+
+INSERT INTO nurse(nurse_id, dept_name, first_name, last_name, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (83456, 'Nursing', 'Bruce', 'Banner', 'Male', '267-123-0100', '127 Sunset street', 'Philadelphia', 'Pennsylvania', 19600, 34, 1987-11-30)
+
+INSERT INTO nurse(nurse_id, dept_name, first_name, last_name, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (84567, 'Nursing', 'Peter', 'Parker', 'Male', '267-123-0010', '122 Sunset street', 'Philadelphia', 'Pennsylvania', 19600, 34, 1987-09-27)
+
+INSERT INTO nurse(nurse_id, dept_name, first_name, last_name, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (85678, 'Nursing', 'Steve', 'Rogers', 'Male', '267-123-0001', '124 Sunset street', 'Philadelphia', 'Pennsylvania', 19600, 34, 1987-07-04)
 
 
+--Insert data for doctor relation
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (91234, 'Cardiology', 'Sonic','Hedgehog' ,'Pediatric Cardiologist' , 'Male', '267-123-2000', '23rd blv' ,'Green Hills', 'Montana', 59001, 24, 1997-08-09)
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (92345, 'Critical Care', 'Knuckles','Hedgehog' ,'Intensivist' , 'Male', '267-123-2100', '23rd blv' ,'Green Hills', 'Montana', 59100, 24, 1997-04-09)
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (93456, 'Accident and emergency', 'Ivo','Robotnik' ,'emergency room physician' , 'Male', '267-123-2010', '28th blv' ,'Green Hills', 'Montana', 59010, 34, 1987-08-09)
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (94567, 'General Surgery', 'Jason','Vorhees' ,'Cardiothoracic surgery' , 'Male', '267-123-2001', '13th blv' ,'Crystal Lake', 'Illinois', 60422, 24, 1997-10-31)
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (95678, 'Radiology', 'Michael','Myers' ,'Head and Neck Radiology' , 'Male', '267-123-2110', '31st blv' ,'Haddonfield', 'Illinois', 60423, 24, 1997-10-13)
+
+INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, sex, phone_number, street_address, city, state, zip, age, DOB)
+VALUES (94567, 'General Surgery', 'Freddy','Krueger' ,'Pediatric surgeons' , 'Male', '267-123-2111', '31st Elm Street','Springwood' ,'Ohio', 43500, 24, 1997-10-30,)
 
 
+-- Insert data for payment relation
+
+INSERT INTO payment(payment_id, status, type)
+VALUES (71234, paid, 'fee-for-service')
+
+INSERT INTO payment(payment_id, status, type)
+VALUES (72345, owed, 'fee-for-service')
+
+INSERT INTO payment(payment_id, status, type)
+VALUES (73456, paid, 'fee-for-service')
+
+INSERT INTO payment(payment_id, status, type)
+VALUES (74567, owed, 'fee-for-service')
+
+INSERT INTO payment(payment_id, status, type)
+VALUES (75678, paid, 'fee-for-service')
+
+
+-- Insert data for bill relation
+
+INSERT INTO bill(bill_id, payment_id, room_id, med_name, room_charges, doctor_charges)
+VALUES (10123, 71234, 63456, 10356.00,'Ibuprofen', 10356.00, 25678.00)
+
+INSERT INTO bill(bill_id, payment_id, room_id, med_name, room_charges, doctor_charges)
+VALUES (10234, 72345, 64567, 10356.00,  ,10356.00, 19789.00)
+
+INSERT INTO bill(bill_id, payment_id, room_id, med_name, room_charges, doctor_charges)
+VALUES (10345, 73456, 67891, 10356.00,'Viagra',10356.00, 20991.00)
+
+INSERT INTO bill(bill_id, payment_id, room_id, med_name, room_charges, doctor_charges)
+VALUES (10456, 74567, 68910, 10356.00,'Ciprofloxacin', 10356.00, 21554.00)
+
+INSERT INTO bill(bill_id, payment_id, room_id, med_name, room_charges, doctor_charges)
+VALUES (10567, 75678, 69100, 10356.00,  ,10356.00, 14555.00)
+
+
+--Insert data for record relation
+		
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_number, date_admitted, date_discharged, treatment)
+VALUES (01234, 94567, 12345, 81234, 10123, 202, 2022-01-13, 2022-01-28, 'Lung Surgery') 
+		
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_number, date_admitted, date_discharged, treatment)
+VALUES (02345, 95678, 12555, 82345, 10234, 304, 2022-02-19, 2022-03-02, 'Computed Tomography (CT) Head Scan') 
+
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_number, date_admitted, date_discharged, treatment)
+VALUES (03456, 91234, 14444, 83456, 10345, 220, 2022-02-27, 2022-03-04, 'Heart Surgery Check-Up/Set-Up') 
+
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_number, date_admitted, date_discharged, treatment)
+VALUES (04567, 93456, 15454, 84567, 10456, 215, 2022-03-10, 2022-03-29, 'Leg Fracture Repair') 
+
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_number, date_admitted, date_discharged, treatment)
+VALUES (05678, 92345, 12543, 85678, 10567, 210, 2022-01-05, 2022-01-25, 'COVID-19 Infection care') 
+		
+		
+		
