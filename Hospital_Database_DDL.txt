@@ -4,11 +4,10 @@
 CREATE TABLE IF NOT EXISTS medicine
 (
 	med_id				INTEGER,
-	med_name			VARCHAR(20),
+	med_name			VARCHAR(20), --candidate key
 	quantity			INTEGER,
-	price				NUMERIC(5,2), -- per unit
-	CONSTRAINT medicine_pk1 PRIMARY KEY (med_id),
-	CONSTRAINT medicine_pk2 PRIMARY KEY (med_name)
+	price				NUMERIC(5,2) CHECK (price > 0.00 AND price < 1000.00), -- per unit
+	CONSTRAINT medicine_pk PRIMARY KEY (med_id)
 );
 
 -- stores data pertaining to patients
@@ -16,19 +15,19 @@ CREATE TABLE IF NOT EXISTS patient
 (
 	patient_id				INTEGER,
 	med_name				VARCHAR(20),
-	first_name				VARCHAR(20),
-	last_name				VARCHAR(20),
+	first_name				VARCHAR(20) NOT NULL,
+	last_name				VARCHAR(20) NOT NULL,
 	sex						VARCHAR(10),
 	phone_number			VARCHAR(15),
-	SSN						VARCHAR(11),
-	street_address			VARCHAR(30),
+	SSN						VARCHAR(11) NOT NULL, -- candidate key
+	street_address			VARCHAR(30) NOT NULL,
 	city 					VARCHAR(30),
 	state					VARCHAR(35),
 	zip						INTEGER,
 	age						INTEGER,
 	DOB						DATE,
 	race					VARCHAR(20),
-	CONSTRAINT patient_pk1 PRIMARY KEY (patient_id),
+	CONSTRAINT patient_pk PRIMARY KEY (patient_id),
 	CONSTRAINT patient_fk1 FOREIGN KEY (med_name) REFERENCES medicine (med_name)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE	
@@ -38,10 +37,9 @@ CREATE TABLE IF NOT EXISTS patient
 CREATE TABLE IF NOT EXISTS department
 (
 	dept_id					INTEGER,
-	dept_name				VARCHAR(20),
-	dept_head_id			INTEGER, -- this needs to be updated
-	CONSTRAINT department_pk1 PRIMARY KEY (dept_id),
-	CONSTRAINT department_pk2 PRIMARY KEY (dept_name)	
+	dept_name				VARCHAR(20) NOT NULL, -- candidate key
+	dept_head_id			INTEGER, 
+	CONSTRAINT department_pk PRIMARY KEY (dept_id),	
 );
 
 -- stores data pertaining to doctors
@@ -49,22 +47,24 @@ CREATE TABLE IF NOT EXISTS doctor
 (
 	doctor_id				INTEGER,
 	dept_name				VARCHAR(20),
-	first_name				VARCHAR(20),
-	last_name				VARCHAR(20),
-	specialty				VARCHAR(20),
+	first_name				VARCHAR(20) NOT NULL,
+	last_name				VARCHAR(20) NOT NULL,
+	specialty				VARCHAR(20) NOT NULL,
+	salary					NUMERIC(8,2) NOT NULL,
 	sex						VARCHAR(10),
-	phone_number			VARCHAR(15),
-	street_address			VARCHAR(30),
+	phone_number			VARCHAR(15) NOT NULL,
+	street_address			VARCHAR(30) NOT NULL,
 	city					VARCHAR(30),
 	state					VARCHAR(35),
 	zip						INTEGER,
 	age						INTEGER,
 	DOB						DATE,
 	race					VARCHAR(20),
-	CONSTRAINT doctor_pk1 PRIMARY KEY (doctor_id),
+	CONSTRAINT doctor_pk PRIMARY KEY (doctor_id),
 	CONSTRAINT doctor_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE	
+		ON DELETE CASCADE,
+	CHECK (salary > 0.00 AND salary < 1000000.00)
 );
 
 -- stores data pertaining to nurses
@@ -72,21 +72,23 @@ CREATE TABLE IF NOT EXISTS nurse
 (
 	nurse_id				INTEGER,
 	dept_name				VARCHAR(20),
-	first_name				VARCHAR(20),
-	last_name				VARCHAR(20),
+	first_name				VARCHAR(20) NOT NULL,
+	last_name				VARCHAR(20) NOT NULL,
+	salary					NUMERIC(8,2) NOT NULL,
 	sex						VARCHAR(10),
-	phone_number			VARCHAR(15),
-	street_address			VARCHAR(30),
+	phone_number			VARCHAR(15) NOT NULL,
+	street_address			VARCHAR(30) NOT NULL,
 	city					VARCHAR(30),
 	state					VARCHAR(35),
 	zip						INTEGER,
 	age						INTEGER,
 	DOB						DATE,
 	race					VARCHAR(20),
-	CONSTRAINT nurse_pk1 PRIMARY KEY (nurse_id),
+	CONSTRAINT nurse_pk PRIMARY KEY (nurse_id),
 	CONSTRAINT nurse_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE	
+		ON DELETE CASCADE,
+	CHECK (salary > 0.00 AND salary < 1000000.00)
 );
 
 -- stores data pertaining to staff/regular employees
@@ -94,31 +96,33 @@ CREATE TABLE IF NOT EXISTS staff
 (
 	staff_id				INTEGER,
 	dept_name				VARCHAR(20),
-	first_name				VARCHAR(20),
-	last_name				VARCHAR(20),
-	position				VARCHAR(20),
+	first_name				VARCHAR(20) NOT NULL,
+	last_name				VARCHAR(20) NOT NULL,
+	position				VARCHAR(20) NOT NULL,
+	salary					NUMERIC(8,2) NOT NULL,
 	sex						VARCHAR(10),
-	phone_number			VARCHAR(15),
-	street_address			VARCHAR(30),
+	phone_number			VARCHAR(15) NOT NULL,
+	street_address			VARCHAR(30) NOT NULL,
 	city					VARCHAR(30),
 	state					VARCHAR(35),
 	zip						INTEGER,
 	age						INTEGER,
 	DOB						DATE,
 	race					VARCHAR(20),
-	CONSTRAINT staff_pk1 PRIMARY KEY (staff_id),
+	CONSTRAINT staff_pk PRIMARY KEY (staff_id),
 	CONSTRAINT staff_fk1 FOREIGN KEY (dept_name) REFERENCES department (dept_name)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE	
+		ON DELETE CASCADE,
+	CHECK (salary > 0.00 AND salary < 1000000.00)
 );
 
 -- stores data pertaining to payments
 CREATE TABLE IF NOT EXISTS payment
 (
 	payment_id				INTEGER,
-	status					VARCHAR(10),
+	status					VARCHAR(10) NOT NULL,
 	type					VARCHAR(20),
-	CONSTRAINT payment_pk1 PRIMARY KEY (payment_id),	
+	CONSTRAINT payment_pk PRIMARY KEY (payment_id),	
 );
 
 -- stores data pertaining to bills charged to patients
@@ -126,11 +130,22 @@ CREATE TABLE IF NOT EXISTS bill
 (
 	bill_id					INTEGER,
 	payment_id				INTEGER,
-	room_charges			NUMERIC(5,2),
-	med_charges				NUMERIC(5,2),
-	doctor_charges			NUMERIC(6,2),
-	CONSTRAINT bill_pk1 PRIMARY KEY (bill_id),
-	CONSTRAINT bill_fk1 FOREIGN KEY (payment_id) REFERENCES payments (payment_id)
+	room_id					INTEGER,
+	diagnosis_id			INTEGER,
+	med_id					INTEGER,
+	room_charges			NUMERIC(7,2),
+	doctor_charges			NUMERIC(7,2),
+	CONSTRAINT bill_pk PRIMARY KEY (bill_id),
+	CONSTRAINT bill_fk1 FOREIGN KEY (payment_id) REFERENCES payment (payment_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,	
+	CONSTRAINT bill_fk2 FOREIGN KEY (room_id) REFERENCES room (room_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
+	CONSTRAINT bill_fk3 FOREIGN KEY (med_id) REFERENCES medicine (med_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
+	CONSTRAINT bill_fk4 FOREIGN KEY (diagnosis_id) REFERENCES diagnosis (diagnosis_id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE	
 );
@@ -139,24 +154,20 @@ CREATE TABLE IF NOT EXISTS bill
 CREATE TABLE IF NOT EXISTS room
 (
 	room_id					INTEGER,
-	room_number				INTEGER,
-	room_type				VARCHAR(20),
+	room_number				INTEGER NOT NULL, --candidate key
+	room_type				VARCHAR(20) NOT NULL,
 	floor_number			INTEGER,
-	occupancy				INTEGER,
-	CONSTRAINT room_pk1 PRIMARY KEY (room_id)
+	occupancy				INTEGER NOT NULL,
+	CONSTRAINT room_pk PRIMARY KEY (room_id),
+	CHECK (occupancy > 0)
 );
 
 -- stores data pertaining to diagnosis observed for patients
 CREATE TABLE IF NOT EXISTS diagnosis
 (
 	diagnosis_id			INTEGER,
-	patient_id				INTEGER,
-	diagnosis_type			VARCHAR(20),
-	result					VARCHAR(20),
-	CONSTRAINT diagnosis_pk1 PRIMARY KEY (diagnosis_id),
-	CONSTRAINT diagnosis_fk1 FOREIGN KEY (patient_id) REFERENCES patient (patient_id)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE	
+	diagnosis_type			VARCHAR(20) NOT NULL, -- candidate key
+	CONSTRAINT diagnosis_pk PRIMARY KEY (diagnosis_id),	
 );
 
 -- stores data pertaining to records for patient pass appointments
@@ -167,24 +178,24 @@ CREATE TABLE IF NOT EXISTS record
 	patient_id				INTEGER,
 	nurse_id				INTEGER,
 	bill_id					INTEGER,
-	room_number				INTEGER,
-	date_admitted			DATE,
+	room_id					INTEGER,
+	date_admitted			DATE 		NOT NULL,
 	date_discharged			DATE,
-	treatment				VARCHAR(30),
-	CONSTRAINT record_pk1 PRIMARY KEY (record_id),
+	treatment				VARCHAR(30) NOT NULL,
+	CONSTRAINT record_pk PRIMARY KEY (record_id),
 	CONSTRAINT record_fk1 FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE
+		ON DELETE CASCADE,
 	CONSTRAINT record_fk2 FOREIGN KEY (patient_id) REFERENCES patient (patient_id)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE
+		ON DELETE CASCADE,
 	CONSTRAINT record_fk3 FOREIGN KEY (nurse_id) REFERENCES nurse (nurse_id)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE
+		ON DELETE CASCADE,
 	CONSTRAINT record_fk4 FOREIGN KEY (bill_id) REFERENCES bill (bill_id)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE
-	CONSTRAINT record_fk5 FOREIGN KEY (room_number) REFERENCES room (room_number)
+		ON DELETE CASCADE,
+	CONSTRAINT record_fk5 FOREIGN KEY (room_id) REFERENCES room (room_id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 );
