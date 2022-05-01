@@ -300,20 +300,20 @@ VALUES (10567, 75678, 69100, ,10356.00, 14555.00)
 
 --Insert data for record relation
 		
-INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, date_admitted, date_discharged, treatment)
-VALUES (01234, 94567, 12345, 81234, 10123, 63456, 2022-01-13, 2022-01-28, 'Lung Surgery') 
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
+VALUES (01234, 94567, 12345, 81234, 10123, 63456, ,2022-01-13, 2022-01-28, 'Lung Surgery') 
 		
-INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, date_admitted, date_discharged, treatment)
-VALUES (02345, 95678, 12555, 82345, 10234, 64567, 2022-02-19, 2022-03-02, 'Computed Tomography (CT) Head Scan') 
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
+VALUES (02345, 95678, 12555, 82345, 10234, 64567, 40003, 2022-02-19, 2022-03-02, 'Computed Tomography (CT) Head Scan') 
 
-INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, date_admitted, date_discharged, treatment)
-VALUES (03456, 91234, 14444, 83456, 10345, 67891, 2022-02-27, 2022-03-04, 'Heart Surgery Check-Up/Set-Up') 
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
+VALUES (03456, 91234, 14444, 83456, 10345, 67891, 40006, 2022-02-27, 2022-03-04, 'Heart Surgery Check-Up/Set-Up') 
 
-INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, date_admitted, date_discharged, treatment)
-VALUES (04567, 93456, 15454, 84567, 10456, 68910, 2022-03-10, 2022-03-29, 'Leg Fracture Repair') 
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
+VALUES (04567, 93456, 15454, 84567, 10456, 68910, 40001,2022-03-10, 2022-03-29, 'Leg Fracture Repair') 
 
-INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, date_admitted, date_discharged, treatment)
-VALUES (05678, 92345, 12543, 85678, 10567, 69100, 2022-01-05, 2022-01-25, 'COVID-19 Infection care') 
+INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
+VALUES (05678, 92345, 12543, 85678, 10567, 69100, ,2022-01-05, 2022-01-25, 'COVID-19 Infection care') 
 		
 		
 		
