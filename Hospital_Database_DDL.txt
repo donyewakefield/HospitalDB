@@ -179,6 +179,7 @@ CREATE TABLE IF NOT EXISTS record
 	nurse_id				INTEGER,
 	bill_id					INTEGER,
 	room_id					INTEGER,
+	diagnosis_id			INTEGER,
 	date_admitted			DATE 		NOT NULL,
 	date_discharged			DATE,
 	treatment				VARCHAR(30) NOT NULL,
@@ -196,6 +197,9 @@ CREATE TABLE IF NOT EXISTS record
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	CONSTRAINT record_fk5 FOREIGN KEY (room_id) REFERENCES room (room_id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
+	CONSTRAINT record_fk6 FOREIGN KEY (diagnosis_id) REFERENCES diagnosis (diagnosis_id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 );
