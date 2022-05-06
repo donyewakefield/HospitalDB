@@ -1,0 +1,312 @@
+-- View Defininitions (2):
+/*
+**** Financial Professionals views (Accountants, Finanical Analysts, etc.)
+Finance professionals are allowed access to financial data which includes salary data and bill data. 
+These professionals are highly regulated however, so other personal data like ssn, address, etc. 
+are not allowed to be viewed by these individuals. Acess to the actual tables pertaining to both 
+patients and employees (staff, doctors, and nurses) are denied, and only relevant financially 
+based data is given to these professionals.
+*/
+-- create view pertaining to employee salary info
+CREATE VIEW employee_financials AS
+(SELECT doctor.salary, doctor.first_name, doctor.last_name, doctor.specialty 
+FROM doctor)
+UNION ALL
+(SELECT nurse.salary, nurse.first_name, nurse.last_name, NULL
+FROM nurse)
+UNION ALL
+(SELECT staff.salary, staff.first_name, staff.last_name, staff.position
+ FROM staff)
+ 
+--create view pertaining to bill info regarding patients
+CREATE VIEW patient_financials AS
+SELECT payment.payment_id, med_name, price AS medicine_price, room_charges, room_type, doctor_charges, type AS payment_type,
+patient.first_name, patient.last_name
+FROM bill, medicine, room, payment, record, patient
+WHERE medicine.med_id = bill.med_id AND room.room_id = bill.room_id AND payment.payment_id = bill.payment_id
+AND bill.bill_id = record.bill_id AND record.patient_id = patient.patient_id
+
+-- General Functions (2):
+-- Calculate total bill amount for a patient
+CREATE OR REPLACE FUNCTION total_bill (patient_id INTEGER)
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS
+  $$
+  	 DECLARE 
+	 		bill_cost NUMERIC;
+	 BEGIN	
+	 		SELECT SUM(room_charges + doctor_charges + price) INTO bill_cost
+			FROM bill, record, medicine, patient
+			WHERE bill.bill_id = record.bill_id AND bill.med_id = medicine.med_id AND patient.patient_id = record.patient_id
+			AND
+			patient.patient_id = total_bill.patient_id;
+	RETURN bill_cost;
+	END;
+  $$
+
+-- lets test the function by having a patient's (Donye Wakefield) total bill fully calculated and returned
+SELECT total_bill(12345)
+
+ 
+-- Calculates total cost of purchased units of medicine conducted by a patient
+CREATE OR REPLACE FUNCTION medicine_tot_cost (num NUMERIC(5,2), med_name VARCHAR(20))
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS
+  $$
+  	 DECLARE 
+	 		total_cost NUMERIC;
+	 BEGIN	
+	 		SELECT (SELECT num * (SELECT price
+								  FROM medicine
+								  WHERE medicine.med_name = medicine_tot_cost.med_name)) INTO total_cost;
+			RETURN total_cost;
+			END;			
+  $$;
+-- lets test the function by having a patient purchase 4 units of Viagra
+SELECT ROUND(medicine_tot_cost(4.0, 'Viagra'), 2);
+
+
+-- Stored Procedure (2):
+-- Lets simmply add another doctor to the hospital database 
+CREATE OR REPLACE PROCEDURE add_specific_doctor() 
+LANGUAGE plpgsql
+AS 
+	$$
+		BEGIN
+			INSERT INTO doctor(doctor_id, dept_name, first_name, last_name, specialty, salary, sex, phone_number, street_address, city, state, zip, age, DOB, race)
+			VALUES (90000, 'Cardiology', 'Natasha','Romanoff' ,'Pediatric Cardiologist', 200000.00, 'Female', '267-123-1111', '23rd blv' ,'Green Hills', 'Montana', 59001, 24, '1997-09-09', 'Caucasian-American');
+		END;
+	$$
+-- Lets test this procedure out by adding Dr. Romanoff to the database in the doctor relation
+CALL add_doctor();
+
+
+-- Lets create a procedure that gives a doctor a raise by a specified percentage
+CREATE OR REPLACE PROCEDURE increase_doc_salary(IN doctor_id INTEGER, IN percentage NUMERIC)
+LANGUAGE plpgsql
+AS 
+	$$
+		BEGIN
+			UPDATE doctor
+			SET salary = salary + (salary * percentage);
+		END;
+	$$
+	
+-- lets check Dr. Vorhees' current salary
+SELECT * 
+FROM doctor
+WHERE doctor_id = 94567
+
+-- lets increase Dr. Vorhees' current salary by 2%
+CALL increase_doc_salary(94567, 0.02);
+
+
+-- Trigger (1):
+/*
+When 3 new patients sign up in the hospital their personal data is then saved in the database. 
+When this happens, the hospital will purchase 10 more units for each medicine. Lets simulate
+this purchase with a trigger! Basically, when 5 new patients are saved in the database,
+a trigger will excecute and increase every medicine unit quantity by 10.
+(Call the trigger function New_Patient_New_Quant)
+*/
+
+-- Define the trigger function
+CREATE OR REPLACE FUNCTION New_Patient_New_Quant()
+        RETURNS TRIGGER
+        LANGUAGE plpgsql
+        AS
+        $$
+			DECLARE
+					quant INTEGER; -- name of variable we want to put quantity into				
+            BEGIN
+				-- obatin the quantity 
+				SELECT COUNT(medicine.med_id) INTO quant
+				FROM patient, medicine 
+				WHERE patient.med_id = medicine.med_id AND medicine.med_id = NEW.med_id;
+				--update the medicine relation with new quantity
+				UPDATE medicine
+				SET quantity = quantity + 10
+				WHERE med_id = NEW.med_id;
+				-- return the new relation
+				RETURN NEW;          
+            END;
+        $$;
+		
+-- Define the trigger event
+
+		CREATE TRIGGER quant_update
+		-- When does the trigger happen (AFTER, BEFORE, INSTEAD OF)
+		AFTER INSERT ON patient 
+		-- What does the trigger affect
+		FOR EACH ROW 
+		-- Execute the trigger
+		EXECUTE PROCEDURE New_Patient_New_Quant(); 
+
+-- lets view current quantity 
+SELECT * 
+FROM medicine
+
+-- now lets insert a new patient in the database
+INSERT INTO patient(patient_id, med_id, first_name, last_name, sex, phone_number, SSN, street_address, city, state, zip, age, DOB, race)
+VALUES (12533, NULL, 'Kanye', 'West', 'Male', '267-372-9002', '200-11-0005', '522 West Bronze Ave', 'Philadelphia', 'Pennsylvania', 19888, 31, '1990-07-17', 'African-American');
+
+-- now lets view the updated quantity 
+SELECT * 
+FROM medicine
+
+-- Example DML statements
+-- Update Statement:
+-- bill
+UPDATE bill
+set room_charges = room_charges + 2.00;
+
+-- Delete Statement:
+-- bill
+DELETE FROM bill
+WHERE doctor_charges < 10000.00
+
+-- Example Queries (8):
+/*1. Obtain the IDs and full names of all staff members who makes less than $80,000 and simulate 
+a 6% percent raise. Also showcase the amount that will be added to the salary, aswell as the 
+increased salary*/
+
+(SELECT staff_id, first_name, last_name, salary, (salary * 0.06) AS raise, ((salary * 0.06) + salary) AS NEW_salary
+FROM staff
+WHERE salary < 80000)
+
+/*2.
+Suppose that we want to integrate a new attribute that is associated with the tax bracket of each 
+employee. Lets focus on staff (not doctors nor nurses). Calculate the amount of tax that 
+will be owed annually for all staff. Then calculate the deducted salary. Showcase the 
+full name, salary, tax owed according to tax bracket (tax_money), and 
+the deducted salary
+let salary be s
+Guidelines: (s >= 100000) = 32% tax rate, (56000 <= s < 100000) = 22% tax rate, (s < 56000) = 12% tax rate*/
+
+((SELECT first_name, last_name, salary, (salary * 0.32) AS tax_money, (salary - (salary * 0.32)) AS deducted_salary 
+FROM staff
+WHERE salary >= 100000)
+UNION
+(SELECT first_name, last_name, salary, (salary * 0.22) AS tax_money, (salary - (salary * 0.22)) AS deducted_salary 
+FROM staff
+WHERE salary < 100000 AND salary >= 56000)
+UNION
+(SELECT first_name, last_name, salary, (salary * 0.12) AS tax_money, (salary - (salary * 0.12)) AS deducted_salary 
+FROM staff
+WHERE salary < 56000))
+
+/*3.
+Calculate the average salary within each department in the hospital, and showcase the average salary
+as its own seperate attribute along with the associated department name*/
+
+(WITH salary_info (salary, first_name, last_name, dept_name) AS
+((SELECT salary, first_name, last_name, dept_name
+FROM doctor)
+UNION
+(SELECT salary, first_name, last_name, dept_name
+FROM nurse)
+UNION
+(SELECT salary, first_name, last_name, dept_name
+FROM staff))
+SELECT AVG(salary), dept_name
+FROM salary_info
+GROUP BY dept_name)
+
+/*4.
+Locate the patients who owe a payment for a medical bill's full_name, phone number, and street address, and 
+status. In addition, also determine the total amount that is owed in total (call this amount_owed). 
+In order to calculate the total bill for the patient you will use the total_bill function 
+(to use this you will need to obtain and pass the patient's ID)*/
+
+(SELECT first_name, last_name, phone_number, street_address, status, total_bill(patient.patient_id) AS amount_owed
+FROM patient, bill, payment, record
+WHERE patient.patient_id = record.patient_id AND bill.bill_id = record.bill_id AND 
+bill.payment_id = payment.payment_id
+AND status = 'owed')
+
+
+/*5.
+Suppose that the hospital wanted to derive the price for purchasing every medicine unit from 
+a supplier. Let price be the price charged to the patient - $10.22 (call this supplier_price).
+Then calulate the total payment that had to be made to purchase the current quantity of 
+medicine units for each medicine (call this total_supplier_payment). Obtain the medicine name,
+quantity, supplier price, and total supplier payment.
+*/
+
+(SELECT med_name, quantity, price, (price - 10.22) AS supplier_price,  (price - 10.22) * quantity 
+AS total_supplier_payment
+FROM medicine)
+
+
+/*6.
+To evaluate employee diversity in the hospital, obtain the ratio of females to males for every
+type of employee (doctor, staff member, and nurse) and call this attribute 'staff_gender_ratio'. 
+Then obtain the profession each gender ratio is associated 
+with (call this attribute 'profession').
+*/
+
+-- Shows that 61.5% of staff are female
+((SELECT (1.0 * (SELECT COUNT(sex)
+			     FROM staff
+			     WHERE sex = 'Female') / (SELECT COUNT(sex) 
+										FROM staff
+										WHERE sex = 'Male')) AS staff_gender_ratio, 'staff_member' AS profession)
+UNION
+-- Shows that 0% of the doctors are female 				
+(SELECT (1.0 * (SELECT COUNT(sex) 
+				FROM doctor
+				WHERE sex = 'Female') / (SELECT COUNT(sex)
+					  			FROM doctor
+					  			WHERE sex = 'Male')) AS doctor_gender_ratio, 'doctor' AS profession)
+UNION
+-- Shows that 25% of the nurses are females								
+(SELECT (1.0 * (SELECT COUNT(sex) 
+				FROM nurse
+				WHERE sex = 'Female') / (SELECT COUNT(sex)
+					  			FROM nurse
+					  			WHERE sex = 'Male')) AS nurse_gender_ratio, 'nurse' AS profession))
+
+
+/*7.
+Determine what diagnosis is associated with the most expensive bill by grouping all diagnosis types,
+finding the highest bills associated with each diagnosis type, and then you can just 
+compare the highest bill values (call this attribute highest_bill). Obtain both the highest bill
+of each diagnosis type, and the diagnosis type itself. 
+*/
+
+-- Tourette Syndrome is associated with most expensive bill
+(WITH r1 (diagnosis_id, total_bill, diagnosis_type) AS
+	(SELECT bill.diagnosis_id, total_bill(patient_id), diagnosis_type
+	FROM bill, record, diagnosis
+	WHERE bill.diagnosis_id = record.diagnosis_id AND diagnosis.diagnosis_id = bill.diagnosis_id
+	AND record.diagnosis_id = diagnosis.diagnosis_id)
+SELECT MAX(total_bill) AS highest_bill, diagnosis_type
+FROM r1
+GROUP BY diagnosis_type
+)
+
+/*8.
+Have all patients who have a medicine associated with them and has a medical record, purchase 5 units of their
+associated medicine. Obtain the name of the medicine purchased, the full name of the patient,
+the total cost of the medicine units purchases (call this medicine_cost), the total bill prior
+to adding the medicine cost (call this sub_total_bill), and finally the full bill
+with the total medicine cost added (call this post_total_bill)
+*/
+
+((SELECT first_name, last_name, med_name AS medicine_name, 
+ROUND(medicine_tot_cost(5.0, med_name), 2) AS medicine_cost, total_bill(patient.patient_id) AS sub_total_bill,
+total_bill(patient.patient_id) + ROUND(medicine_tot_cost(5.0, med_name), 2) AS post_total_bill
+FROM patient, medicine
+WHERE patient.med_id = medicine.med_id)
+EXCEPT
+(SELECT first_name, last_name, med_name AS medicine_name, 
+ROUND(medicine_tot_cost(5.0, med_name), 2) AS medicine_cost, total_bill(patient.patient_id) AS sub_total_bill,
+total_bill(patient.patient_id) + ROUND(medicine_tot_cost(5.0, med_name), 2) AS post_total_bill
+FROM patient, medicine 
+WHERE patient.med_id = medicine.med_id AND total_bill(patient.patient_id) IS NULL 
+AND total_bill(patient.patient_id) + ROUND(medicine_tot_cost(5.0, med_name), 2) IS NULL))
+
+
+
