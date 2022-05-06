@@ -282,24 +282,23 @@ VALUES (75678, 'paid', 'fee-for-service');
 
 -- Insert data for bill relation
 
-INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges)
-VALUES (10123, 71234, 63456, 35678, 10356.00, 25678.00);
+INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges, diagnosis_id)
+VALUES (10123, 71234, 63456, 35678, 10356.00, 25678.00, 40003);
 
-INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges)
-VALUES (10234, 72345, 64567, 36789,10356.00, 19789.00);
+INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges, diagnosis_id)
+VALUES (10234, 72345, 64567, 36789,10356.00, 19789.00, 40003);
 
-INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges)
-VALUES (10345, 73456, 67891, 36789,10356.00, 20991.00);
+INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges, diagnosis_id)
+VALUES (10345, 73456, 67891, 36789,10356.00, 20991.00, 40006);
 
-INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges)
-VALUES (10456, 74567, 68910, 31123, 10356.00, 21554.00);
+INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges, diagnosis_id)
+VALUES (10456, 74567, 68910, 31123, 10356.00, 21554.00, 40001);
 
-INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges)
-VALUES (10567, 75678, 69100, 31123,10356.00, 14555.00);
-
+INSERT INTO bill(bill_id, payment_id, room_id, med_id, room_charges, doctor_charges, diagnosis_id)
+VALUES (10567, 75678, 69100, 31123,10356.00, 14555.00, 40006);
 
 --Insert data for record relation 
-		
+
 INSERT INTO record(record_id, doctor_id, patient_id, nurse_id, bill_id, room_id, diagnosis_id, date_admitted, date_discharged, treatment)
 VALUES (01234, 94567, 12345, 81234, 10123, 63456, 40003,'2022-01-13', '2022-01-28', 'Lung Surgery'); 
 		
