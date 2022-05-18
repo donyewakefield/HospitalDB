@@ -7,3 +7,14 @@ A database that stores data pertaining to a hospital (appointments, patient info
  * `Python`
  * `PostgresSQL (Object Relational Database Management System)`
  * `Lucid Chart`
+
+## Implementations:
+* Update statements
+* procedures
+* triggers
+* DDL insertions
+* DDL deletions
+* custom-functions
+* views
+* example business problem queries
+* python script that connects to database
