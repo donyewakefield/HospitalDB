@@ -10,6 +10,6 @@ Languages and Tools:
 -Lucid Chart
 
 
-![hospital pic](https://user-images.githubusercontent.com/71467135/167198923-8c2d7031-b18b-4926-b5f9-478d765b8506.png)
+
 
 
