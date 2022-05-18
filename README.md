@@ -4,6 +4,8 @@ A database that stores data pertaining to a hospital (appointments, patient info
 
 
 Languages and Tools:
+
+
 -SQL
 -Python
 -PostgreSQL (Object Relational Database Management System)
