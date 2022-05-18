@@ -10,10 +10,10 @@ Markup : ```javascript
            *PostgreSQL (Object Relational Database Management System)
              *Lucid Chart
 
- Markup : * SQL
-              * Nested bullet
-                  * Sub-nested bullet etc
-          * Python
+Markup : - Bullet list
+              - Nested bullet
+                  - Sub-nested bullet etc
+          - Bullet list item 2 
 
 
 
