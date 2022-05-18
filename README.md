@@ -12,8 +12,8 @@ A database that stores data pertaining to a hospital (appointments, patient info
 * update statements
 * procedures
 * triggers
-* DDL insertions
-* DDL deletions
+* insertions
+* deletions
 * custom-functions
 * views
 * example business problem queries
