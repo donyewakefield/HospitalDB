@@ -9,7 +9,7 @@ A database that stores data pertaining to a hospital (appointments, patient info
  * `Lucid Chart`
 
 ## Implementations:
-* Update statements
+* update statements
 * procedures
 * triggers
 * DDL insertions
