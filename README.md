@@ -18,3 +18,5 @@ A database that stores data pertaining to a hospital (appointments, patient info
 * views
 * example business problem queries
 * python script that connects to database
+
+![medical-5459630_960_720](https://user-images.githubusercontent.com/71467135/168944980-6e31bc7a-c064-4fe6-bd86-d11edc302251.png)
