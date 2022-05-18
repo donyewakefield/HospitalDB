@@ -4,8 +4,6 @@ A database that stores data pertaining to a hospital (appointments, patient info
 
 ## Languages and Tools: 
  * `SQL`
-     * Nested bullet
-            * Sub-nested bullet etc
  * `Python`
  * `PostgresSQL (Object Relational Database Management System)`
  * `Lucid Chart`
