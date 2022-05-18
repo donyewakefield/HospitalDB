@@ -4,10 +4,10 @@ A database that stores data pertaining to a hospital (appointments, patient info
 
 
 Languages and Tools:
-SQL
-Python
-PostgreSQL (Object Relational Database Management System)
-Lucid Chart
+-SQL
+-Python
+-PostgreSQL (Object Relational Database Management System)
+-Lucid Chart
 
 
 ![hospital pic](https://user-images.githubusercontent.com/71467135/167198923-8c2d7031-b18b-4926-b5f9-478d765b8506.png)
