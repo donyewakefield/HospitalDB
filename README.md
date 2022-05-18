@@ -8,6 +8,7 @@ A database that stores data pertaining to a hospital (appointments, patient info
   `PostgreSQL (Object Relational Database Management System)`
   `Lucid Chart`
 
-
-
-
+ * Bullet list
+     * Nested bullet
+            * Sub-nested bullet etc
+ * Bullet list item 2
