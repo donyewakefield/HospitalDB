@@ -21,6 +21,6 @@ A database that stores data pertaining to a hospital (appointments, patient info
 
 ## Future Add-ons:
 * add any additional modifications to previously made implementations
-* create a UI for hospital staff to interact with the data in the database (throught either a web app or regular desktop app)
+* create a UI for hospital staff to interact with the data in the database (thought either a web app or regular desktop app)
 
 ![medical-5459630_960_720](https://user-images.githubusercontent.com/71467135/168944980-6e31bc7a-c064-4fe6-bd86-d11edc302251.png)
